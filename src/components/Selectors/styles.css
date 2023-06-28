@@ -1,0 +1,21 @@
+.images-selectors {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: absolute;
+  top: 100%;
+  width: 65%;
+  height: 10%;
+}
+.selector {
+  display: inline;
+  width: 1.5rem;
+  height: 1.5rem;
+  background: white;
+  border: 1px solid black;
+  border-radius: 50%;
+}
+.selector:active,
+.selector.active {
+  background: blue;
+}
