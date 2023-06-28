@@ -1,0 +1,12 @@
+.select_title {
+  margin: 0 10px;
+  font-size: 1.8rem;
+}
+.select_container select {
+  width: 15%;
+  min-width: 100px;
+  padding: 5px 10px;
+  background: white;
+  border: 1px solid blue;
+  border-radius: 5px;
+}
