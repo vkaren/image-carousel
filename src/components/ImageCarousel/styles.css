@@ -1,0 +1,27 @@
+.image-carousel {
+  display: flex;
+  justify-content: center;
+  margin: 30px 0;
+  background: black;
+  overflow: hidden;
+}
+.backward-button,
+.forward-button {
+  position: relative;
+  z-index: 2;
+  width: 20%;
+  height: inherit;
+  min-width: 60px;
+  background: black;
+  border: none;
+  border-radius: 0;
+  opacity: 1;
+  cursor: pointer;
+}
+.forward-button {
+  transform: rotate(180deg);
+}
+.backward-button:hover,
+.forward-button:hover {
+  background: rgba(146, 146, 146, 0.397);
+}
