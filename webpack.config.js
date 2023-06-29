@@ -15,11 +15,6 @@ module.exports = {
     assetModuleFilename: "assets/[hash][ext][query]",
     clean: true,
   },
-  /* target: "node",
-  externals: [nodeExternals()],
-  externalsPresets: {
-    node: true,
-  },*/
   mode: "production",
   resolve: {
     extensions: [".js", ".jsx", ".css"],
@@ -35,9 +30,13 @@ module.exports = {
     rules: [
       {
         test: /\.mjs|js|jsx$/,
-        include: path.resolve(__dirname, "src"),
         exclude: /node_modules/,
-        use: { loader: "buble-loader" },
+        use: {
+          loader: "buble-loader",
+          options: {
+            transforms: { asyncAwait: false },
+          },
+        },
       },
       {
         test: /\.css$/i,
@@ -76,75 +75,3 @@ module.exports = {
     },
   },
 };
-
-/** 
-module.exports = {
-  entry: ["./src/index.js", "./src/styles/styles.css"],
-  output: {
-    path: path.resolve(__dirname, "dist"),
-    filename: "[name].[contenthash].js",
-    publicPath: "/",
-    assetModuleFilename: "assets/[hash][ext][query]",
-    clean: true,
-  },
-  mode: "production",
-  resolve: {
-    extensions: [".js", ".css"],
-    alias: {
-      "@assets": path.resolve(__dirname, "src/assets/"),
-      "@containers": path.resolve(__dirname, "src/containers/"),
-      "@components": path.resolve(__dirname, "src/components/"),
-      "@utils": path.resolve(__dirname, "src/utils/"),
-    },
-  },
-  module: {
-    rules: [
-      {
-        test: /\.m?js$/,
-        exclude: /node_modules/,
-        use: { loader: "babel-loader" },
-      },
-      {
-        test: /\.css$/i,
-        use: ["style-loader", "css-loader"],
-      },
-      {
-        test: /\.png/,
-        type: "asset/resource",
-      },
-    ],
-  },
-  plugins: [
-    new HtmlWebpackPlugin({
-      inject: true,
-      template: "./public/index.html",
-      filename: "./index.html",
-    }),
-    new MiniCssExtractPlugin({ filename: "[name].[contenthash].css" }),
-  ],
-  optimization: {
-    minimize: true,
-    minimizer: [new CssMinimizerPlugin()],
-    splitChunks: {
-      chunks: "all",
-      cacheGroups: {
-        vendors: {
-          test: /[\\/]node_modules[\\/]/,
-          chunks: "all",
-          name: "vendors",
-          filename: "assets/vendor.[chunkhash].js",
-          reuseExistingChunk: true,
-          enforce: true,
-          priority: 10,
-        },
-      },
-    },
-  },
-  performance: {
-    hints: "error",
-    maxEntrypointSize: 512000,
-    maxAssetSize: 512000,
-  },
-  devtool: "source-map",
-};
-*/
