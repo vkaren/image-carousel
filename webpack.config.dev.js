@@ -57,4 +57,5 @@ module.exports = {
     historyApiFallback: true,
     open: true,
   },
+  stats: { errorDetails: true },
 };
