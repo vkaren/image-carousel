@@ -4,9 +4,9 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 module.exports = {
   entry: ["./src/index.jsx"],
   output: {
-    path: path.resolve(__dirname, "dist"),
+    path: path.resolve(__dirname, "build"),
     filename: "main.js",
-    publicPath: "/",
+    publicPath: "./",
     assetModuleFilename: "assets/[hash][ext][query]",
     clean: true,
   },
@@ -56,7 +56,7 @@ module.exports = {
     }),
   ],
   devServer: {
-    static: path.join(__dirname, "dist"),
+    static: path.join(__dirname, "build"),
     port: 3000,
     compress: true,
     historyApiFallback: true,
