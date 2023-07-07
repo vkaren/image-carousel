@@ -1,7 +1,5 @@
-import React, { Suspense, lazy } from "react";
+import { Suspense, lazy } from "react";
 import { AppProvider } from "@context";
-// import SelectBreed from "@components/SelectBreed";
-// import ImageCarousel from "@components/ImageCarousel";
 import LoadingSkeleton from "@components/LoadingSkeleton";
 import "./styles.css";
 
