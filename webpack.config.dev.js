@@ -28,10 +28,7 @@ module.exports = {
         test: /\.mjs|js|jsx$/,
         exclude: /node_modules/,
         use: {
-          loader: "buble-loader",
-          options: {
-            transforms: { asyncAwait: false },
-          },
+          loader: "babel-loader",
         },
       },
       {

@@ -3,6 +3,9 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 
+// const BundleAnalyzerPlugin =
+//   require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
+
 module.exports = {
   entry: ["./src/index.jsx"],
   output: {
@@ -13,6 +16,7 @@ module.exports = {
     clean: true,
   },
   mode: "production",
+  devtool: "source-map",
   resolve: {
     extensions: [".js", ".jsx", ".css"],
     alias: {
@@ -29,10 +33,7 @@ module.exports = {
         test: /\.mjs|js|jsx$/,
         exclude: /node_modules/,
         use: {
-          loader: "buble-loader",
-          options: {
-            transforms: { asyncAwait: false },
-          },
+          loader: "babel-loader",
         },
       },
       {
@@ -56,10 +57,12 @@ module.exports = {
       inject: true,
     }),
     new MiniCssExtractPlugin({ filename: "[name].[contenthash].css" }),
+    // new BundleAnalyzerPlugin(),
   ],
   optimization: {
     minimize: true,
     minimizer: ["...", new CssMinimizerPlugin()],
+    runtimeChunk: "single",
     splitChunks: {
       cacheGroups: {
         vendor: {
