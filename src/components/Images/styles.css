@@ -11,7 +11,7 @@
 .dog-img {
   position: absolute;
   z-index: 0;
-  object-fit: scale-down;
+  max-width: 315px;
   transform: translateX(-100vw);
   opacity: 0;
 }
