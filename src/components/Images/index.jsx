@@ -21,7 +21,6 @@ function Images() {
             src={url}
             alt={`${selectedBreed} dog`}
             aria-hidden={currentImageId !== i}
-            loading="lazy"
             className={`dog-img ${currentImageId === i && slideMode}`}
             id={`img-${i}`}
             key={`img-${i}`}
