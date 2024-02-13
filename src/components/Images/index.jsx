@@ -21,6 +21,7 @@ function Images() {
             src={url}
             alt={`${selectedBreed} dog`}
             aria-hidden={currentImageId !== i}
+            fetchpriority="low"
             className={`dog-img ${currentImageId === i && slideMode}`}
             id={`img-${i}`}
             key={`img-${i}`}
@@ -31,7 +32,13 @@ function Images() {
           />
         ))
       ) : (
-        <img src={spinnerIcon} alt="Loading" className="spinner" />
+        <img
+          src={spinnerIcon}
+          alt="Loading"
+          fetchpriority="high"
+          loading="eager"
+          className="spinner"
+        />
       )}
     </div>
   );

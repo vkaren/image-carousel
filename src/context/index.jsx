@@ -2,40 +2,13 @@ import { useState, createContext, useEffect } from "react";
 const AppContext = createContext({});
 
 function AppProvider({ children }) {
-  // Image list
   const [images, setImages] = useState([]);
-
-  // Breed option selected
-  const [selectedBreed, setSelectedBreed] = useState("chihuahua");
-
-  // Image to display
+  const [selectedBreed, setSelectedBreed] = useState("dachshund");
   const [currentImageId, setCurrentImageId] = useState(0);
-
-  // Slide animation mode
   const [slideMode, setSlideMode] = useState("forward");
-
-  // The mouse is/isn't over an image
   const [isMouseOver, setMouseOver] = useState(false);
 
   useEffect(() => {
-    const getImages = async () => {
-      try {
-        const response = await fetch(
-          `https://dog.ceo/api/breed/${selectedBreed}/images/random/10`
-        );
-
-        if (!response.ok) {
-          throw new Error(`HTTP error: ${response.status}`);
-        }
-
-        const responseJson = await response.json();
-        const imagesUrls = responseJson.message;
-
-        setImages(imagesUrls);
-      } catch (err) {
-        throw new Error(err);
-      }
-    };
     getImages();
   }, [selectedBreed]);
 
@@ -49,6 +22,25 @@ function AppProvider({ children }) {
     return () => clearTimeout(timer);
   }, [images, currentImageId, isMouseOver]);
 
+  const getImages = async () => {
+    try {
+      const response = await fetch(
+        `https://dog.ceo/api/breed/${selectedBreed}/images/random/10`
+      );
+
+      if (!response.ok) {
+        throw new Error(`HTTP error: ${response.status}`);
+      }
+
+      const responseJson = await response.json();
+      const imagesUrls = responseJson.message;
+
+      setImages(imagesUrls);
+    } catch (err) {
+      throw new Error(err);
+    }
+  };
+
   const onSelectBreed = (e) => {
     setImages([]);
     setCurrentImageId(0);
@@ -57,43 +49,35 @@ function AppProvider({ children }) {
     setSelectedBreed(e.currentTarget.value);
   };
 
-  const slideForward = () => {
+  const slideForward = (_, imageId = getNextImageId()) => {
     if (slideMode !== "forward") {
       setSlideMode("forward");
     }
-
-    if (currentImageId < images.length - 1) {
-      setCurrentImageId(currentImageId + 1);
-    } else {
-      setCurrentImageId(0);
-    }
+    setCurrentImageId(imageId);
   };
 
-  const slideBackward = () => {
-    const prevImageId =
-      currentImageId - 1 < 0 ? images.length - 1 : currentImageId - 1;
-
+  const slideBackward = (_, imageId = getPrevImageId()) => {
     if (slideMode !== "backward") {
       setSlideMode("backward");
     }
-    setCurrentImageId(prevImageId);
+    setCurrentImageId(imageId);
   };
+
+  const getNextImageId = () =>
+    currentImageId < images.length - 1 ? currentImageId + 1 : 0;
+
+  const getPrevImageId = () =>
+    currentImageId - 1 < 0 ? images.length - 1 : currentImageId - 1;
 
   const selectImage = (event) => {
     const selector = event.currentTarget;
     const selectorId = selector.id.split("-")[1] - "";
 
     if (selectorId < currentImageId) {
-      if (slideMode !== "backward") {
-        setSlideMode("backward");
-      }
+      slideBackward(null, selectorId);
     } else {
-      if (slideMode !== "forward") {
-        setSlideMode("forward");
-      }
+      slideForward(null, selectorId);
     }
-
-    setCurrentImageId(selectorId);
   };
 
   const onMouseEnter = (e) => {

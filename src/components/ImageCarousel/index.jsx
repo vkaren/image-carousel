@@ -14,6 +14,8 @@ function ImageCarousel() {
         <img
           src={arrowIconLarge}
           srcSet={`${arrowIconSmall} 480w, ${arrowIconLarge} 1080w`}
+          fetchpriority="high"
+          loading="eager"
           alt="Backward button"
         />
       </button>
@@ -25,6 +27,8 @@ function ImageCarousel() {
         <img
           src={arrowIconLarge}
           srcSet={`${arrowIconSmall} 480w, ${arrowIconLarge} 1080w`}
+          fetchpriority="high"
+          loading="eager"
           alt="Forward button"
         />
       </button>
