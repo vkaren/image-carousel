@@ -13,7 +13,6 @@ module.exports = {
     clean: true,
   },
   mode: "production",
-  devtool: "source-map",
   resolve: {
     extensions: [".js", ".jsx", ".css"],
     alias: {

@@ -20,7 +20,7 @@ This project utilizes the [Dog API](https://dog.ceo/dog-api/documentation/) to c
 
 <img src="./readme_imgs/defaultValues.PNG" width="450px">
 
-4. The styles dynamically adjust based on the selected slide mode (forward, backward, or fade).
+4. The styles dynamically adjust based on the selected slide mode: forward, backward, or fade (from pause to active).
 
 <img src="./readme_imgs/slideStyle.PNG" width="450px">
 
